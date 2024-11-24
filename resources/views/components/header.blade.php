@@ -14,15 +14,26 @@
                 <livewire:search />
 
                 <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
+                    <!-- Notification dropdown -->
+                    @if (auth()->check())
+                        <div x-data="{ open: false }" class="flex">
+                            <button @click="open = !open" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                    class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                                </svg>
+                            </button>
+                            <div class="relative" x-show="open" x-transition>
+                                <div class="absolute right-0 z-10 mt-6 w-96 origin-top-right">
+                                    <livewire:notifications />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <!-- Profile dropdown -->
                     <div class="relative ml-3 flex gap-6" x-data="{ open: false }">
-
-                        @if (auth()->check())
-                            <a href="{{ route('notifications', auth()->user()->username) }}" class="flex items-center">
-                                Notifications
-                            </a>
-                        @endif
-
                         <div>
                             <button @click="open = !open" type="button"
                                 class="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

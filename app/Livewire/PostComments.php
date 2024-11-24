@@ -9,8 +9,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Notifications\PostCommented;
 
-use Illuminate\Support\Facades\Log;
-
 class PostComments extends Component
 {
     use WithPagination;
@@ -21,12 +19,11 @@ class PostComments extends Component
 
     public function postComment()
     {
-        $post = $this->post;
-        $comment = $this->comment;
-        $commenter = auth()->user();
-
-
         $this->validate();
+
+        $post = $this->post;
+        $commenter = auth()->user();
+        $comment = $this->comment;
 
         $this->post->comments()->create([
             'user_id' => auth()->user()->id,
@@ -34,7 +31,7 @@ class PostComments extends Component
         ]);
         $this->post->user->notify(new PostCommented($post, $commenter, $comment));
 
-        $this->comment = '';
+        $this->reset('comment');
 
     }
 

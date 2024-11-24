@@ -40,7 +40,7 @@ class Notifications extends Component
 
         return view('livewire.notifications', [
             'user' => $user,
-            'notifications' => auth()->user()->notifications()->latest()->paginate(3),
+            'notifications' => auth()->user()->notifications()->latest()->paginate(6),
         ]);
     }
 }

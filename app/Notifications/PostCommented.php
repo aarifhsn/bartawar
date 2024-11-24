@@ -45,8 +45,7 @@ class PostCommented extends Notification
             ->line("{$this->commenter->first_name} {$this->commenter->last_name} commented on your post:")
             ->line($this->comment)
             ->action('View Post', url("/posts/{$this->post->id}"))
-            ->line('Thank you for using our application!')
-            ->line('Thank you for using our application!');
+            ->line('Thank you for your valuable feedback!');
     }
 
     public function toDatabase($notifiable)

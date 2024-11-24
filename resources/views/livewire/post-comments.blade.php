@@ -16,11 +16,10 @@
 
                     <!-- Auto Resizing Comment Box -->
                     <div class="text-gray-700 font-normal w-full">
-                        <textarea wire:model="comment"
+                        <textarea wire:model="comment" id="comment"
                             x-data="{resize () {$el.style.height = '0px';$el.style.height = $el.scrollHeight + 'px'}}"
                             x-init="resize()" @input="resize()" name="comment" placeholder="Write a comment..."
-                            class="flex w-full h-auto min-h-[40px] px-3 py-2 text-sm bg-gray-100 focus:bg-white border border-sm rounded-lg border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50 text-gray-900"
-                            wire:dirty.class="bg-yellow-500" wire:target="comment">></textarea>
+                            class="flex w-full h-auto min-h-[40px] px-3 py-2 text-sm bg-gray-100 focus:bg-white border border-sm rounded-lg border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50 text-gray-900"></textarea>
                     </div>
                 </div>
             </div>
@@ -53,7 +52,7 @@
         <div class="py-4 text-red-700 font-normal">
             <p>
                 You must be logged in to comment. <a wire:navigate class="font-bold italic underline"
-                    href="{{ route('login') }}">Login</a>
+                    href="{{ route('login', ['redirect' => url()->current() . '#comments']) }}">Login</a>
             </p>
         </div>
     @endauth
