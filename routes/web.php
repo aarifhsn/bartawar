@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Livewire\HomePage;
+use App\Livewire\Notifications;
 use App\Livewire\ShowPost;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,18 @@ Route::get('/@{username}/question/{id}/edit', [PostController::class, 'edit'])->
 Route::put('/@{username}/question/{id}', [PostController::class, 'update'])->middleware('auth')->name('post.update');
 
 Route::delete('/question/{id}', [PostController::class, 'destroy'])->middleware('auth')->name('post.destroy');
+
+Route::get('/final', function () {
+    return view('welcome');
+});
+
+Route::get('test', function () {
+    event(new \App\Events\testingEvent('hello'));
+
+    return 'done';
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', Notifications::class)->name('notifications');
+});
 

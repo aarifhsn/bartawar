@@ -4,10 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Notifications\PostCommented;
+
+use Illuminate\Support\Facades\Log;
 
 class PostComments extends Component
 {
@@ -19,13 +21,20 @@ class PostComments extends Component
 
     public function postComment()
     {
+        $post = $this->post;
+        $comment = $this->comment;
+        $commenter = auth()->user();
+
+
         $this->validate();
+
         $this->post->comments()->create([
             'user_id' => auth()->user()->id,
             'comment' => $this->comment,
         ]);
+        $this->post->user->notify(new PostCommented($post, $commenter, $comment));
 
-        $this->reset('comment');
+        $this->comment = '';
 
     }
 

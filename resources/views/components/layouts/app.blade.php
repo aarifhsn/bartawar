@@ -38,6 +38,7 @@
     @include('components.footer')
 
     <!-- Livewire Scripts -->
+    @livewireStyles
     @livewireScripts
 
     @stack('scripts')

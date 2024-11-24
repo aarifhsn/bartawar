@@ -15,7 +15,13 @@
 
                 <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
                     <!-- Profile dropdown -->
-                    <div class="relative ml-3" x-data="{ open: false }">
+                    <div class="relative ml-3 flex gap-6" x-data="{ open: false }">
+
+                        @if (auth()->check())
+                            <a href="{{ route('notifications', auth()->user()->username) }}" class="flex items-center">
+                                Notifications
+                            </a>
+                        @endif
 
                         <div>
                             <button @click="open = !open" type="button"

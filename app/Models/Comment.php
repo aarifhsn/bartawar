@@ -13,6 +13,8 @@ class Comment extends Model
         'user_id',
         'post_id',
         'comment',
+        'commenter_name',
+        'liker_name'
     ];
 
     public function post()

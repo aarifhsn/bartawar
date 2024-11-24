@@ -123,4 +123,15 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Notification Providers
+    |--------------------------------------------------------------------------
+    */
+
+    // 'providers' => [
+    //     Illuminate\Notifications\NotificationServiceProvider::class,
+    // ],
+
+
 ];
