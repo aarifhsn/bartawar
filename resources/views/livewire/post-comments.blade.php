@@ -27,7 +27,7 @@
             <!-- Create Comment Card Bottom -->
             <div>
                 <!-- Card Bottom Action Buttons -->
-                <div class="flex items-center justify-end">
+                <div class="flex items-center justify-end mb-2">
                     <button type="submit"
                         class="mt-2 flex gap-2 text-xs items-center rounded-full px-4 py-2 font-semibold bg-gray-800 hover:bg-black text-white">
                         Comment
@@ -43,7 +43,7 @@
                     <p>{{ $message }}</p>
                 </div>
             @enderror
-            <div wire:loading>
+            <div wire:loading class="py-4 text-slate-500 text-sm font-normal">
                 Submitting your comment...
             </div>
         </form>
@@ -76,12 +76,14 @@
                     <header>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-3">
+
                                 <!-- User Avatar -->
                                 <div class="flex-shrink-0">
                                     <img class="h-10 w-10 rounded-full object-cover" src="{{ $comment->user->avatar_url }}"
                                         alt="{{ $comment->user->full_name }}" />
                                 </div>
                                 <!-- /User Avatar -->
+
                                 <!-- User Info -->
                                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                                     <a href="{{route('profile', $comment->user->username)}}"

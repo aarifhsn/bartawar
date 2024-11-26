@@ -24,7 +24,7 @@
                                         d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
                                 </svg>
                             </button>
-                            <div class="relative" x-show="open" x-transition>
+                            <div class="relative" x-show="open" @click.outside="open = false">
                                 <div class="absolute right-0 z-10 mt-6 w-96 origin-top-right">
                                     <livewire:notifications />
                                 </div>
@@ -83,7 +83,13 @@
         </div>
 
         @include ('components.mobile-navbar')
-
-
     </nav>
 </header>
+
+<script>
+    window.Echo.private(`notifications.${userId}`)
+        .notification((notification) => {
+            alert(notification.message); // Show an alert or update the UI
+        });
+
+</script>

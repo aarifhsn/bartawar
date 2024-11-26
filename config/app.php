@@ -125,13 +125,9 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Notification Providers
+    | Application Service Providers
     |--------------------------------------------------------------------------
     */
-
-    // 'providers' => [
-    //     Illuminate\Notifications\NotificationServiceProvider::class,
-    // ],
 
 
 ];

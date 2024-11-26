@@ -8,6 +8,9 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Notifications\PostCommented;
+use App\Events\CommentPosted;
+use Livewire\Attributes\Reactive;
+use Illuminate\Support\Facades\Auth;
 
 class PostComments extends Component
 {
@@ -15,24 +18,27 @@ class PostComments extends Component
     public Post $post;
 
     #[Validate('required|min:3|max:255')]
-    public string $comment;
+    public string $comment = '';
 
     public function postComment()
     {
         $this->validate();
 
         $post = $this->post;
-        $commenter = auth()->user();
+        $commenter = Auth::user();
         $comment = $this->comment;
 
         $this->post->comments()->create([
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth::user()->id,
             'comment' => $this->comment,
         ]);
+        $this->comment = '';
+
+        // Trigger the PostCommented notification
         $this->post->user->notify(new PostCommented($post, $commenter, $comment));
 
-        $this->reset('comment');
-
+        // Trigger the CommentPosted event
+        CommentPosted::dispatch($post, $commenter, $comment);
     }
 
     #[Computed]

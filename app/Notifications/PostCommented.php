@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class PostCommented extends Notification
 {
@@ -60,9 +61,10 @@ class PostCommented extends Notification
 
     public function toBroadcast($notifiable)
     {
-        return [
-            'data' => $this->toDatabase($notifiable),
-        ];
+        return new BroadcastMessage([
+            'message' => $this->commenter->first_name . ' ' . $this->commenter->last_name . ' commented on your post!',
+            'post_id' => $this->post->id,
+        ]);
     }
 
     /**

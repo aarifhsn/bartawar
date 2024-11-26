@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+// channel is actually the creator of the post
+Broadcast::channel('post.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });

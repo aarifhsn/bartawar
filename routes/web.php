@@ -32,17 +32,6 @@ Route::put('/@{username}/question/{id}', [PostController::class, 'update'])->mid
 
 Route::delete('/question/{id}', [PostController::class, 'destroy'])->middleware('auth')->name('post.destroy');
 
-Route::get('/final', function () {
-    return view('welcome');
-});
-
-Route::get('test', function () {
-    event(new \App\Events\testingEvent('hello'));
-
-    return 'done';
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/notifications', Notifications::class)->name('notifications');
 });
-

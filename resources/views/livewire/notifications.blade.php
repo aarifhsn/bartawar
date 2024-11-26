@@ -5,12 +5,15 @@
         <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white flex justify-end gap-2">New
             notification</span>
         @if (count($notifications) > 0)
-
             <button class="px-2 py-1 border border-gray-200 hover:bg-gray-200 text-black rounded-lg text-xs"
                 wire:click="markAllAsRead">Mark All as
                 Read</button>
             <a href="{{ route('notifications', auth()->user()->username) }}"
                 class="px-2 py-1 border border-gray-200 hover:bg-gray-200 text-black rounded-lg text-xs"> View all</a>
+        @else
+            <a href="{{ route('notifications', auth()->user()->username) }}"
+                class="px-2 py-1 border border-gray-200 hover:bg-gray-200 text-black rounded-lg text-sm"> View old
+                notifications</a>
         @endif
 
     </div>
@@ -70,3 +73,16 @@
     @endforelse
     {{ $notifications->links(data: ['scrollTo' => false]) }}
 </div>
+
+@push('scripts')
+    <script>
+        window.Echo.channel(`post.${postId}`).listen(".CommentPosted", (event) => {
+            console.log("New comment:", event);
+            // Update comments section
+            const commentsContainer = document.getElementById("comments-container");
+            const newComment = `<div><strong>${event.user.name}:</strong> ${event.comment}</div>`;
+            commentsContainer.innerHTML = newComment + commentsContainer.innerHTML;
+        });
+
+    </script>
+@endpush
