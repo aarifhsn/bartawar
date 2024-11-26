@@ -9,6 +9,8 @@ Barta is a simple social networking platform where users can post content, updat
 -   Post creation with image uploads
 -   Search functionality to find posts by users' full name, username, or email
 -   User-friendly interface with responsive design
+-   Comments and Like options
+-   Realtime notifications Feature
 
 ## Prerequisites
 
@@ -26,16 +28,10 @@ You can set up the project easily using a `Makefile` to streamline the process. 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/aarifhsn/laravel-career-path.git
+    git clone https://github.com/aarifhsn/bartawar.git
     ```
 
-2. **Navigate to the project directory:**
-
-    ```bash
-    cd laravel-career-path/bartalive
-    ```
-
-3. **Set up the project with the `Makefile`:**
+2. **Set up the project with the `Makefile`:**
 
     If you have `make` installed, you can run the following command to install dependencies, set up environment files, and configure the project automatically:
 
@@ -43,6 +39,6 @@ You can set up the project easily using a `Makefile` to streamline the process. 
     make install
     ```
 
-4. **Access the application:**
+3. **Access the application:**
 
     Open your browser and navigate to [http://localhost:8000](http://localhost:8000) to start using the platform.
