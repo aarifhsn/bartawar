@@ -3,11 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Post;
 
 class NotificationViewer extends Component
 {
     public function render()
     {
-        return view('livewire.notification-viewer');
+        //get all posts
+        $posts = Post::all();
+        return view('livewire.notification-viewer', compact('posts'));
     }
 }

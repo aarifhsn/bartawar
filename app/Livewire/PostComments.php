@@ -25,6 +25,7 @@ class PostComments extends Component
         $this->validate();
 
         $post = $this->post;
+        $post_author = $this->post->user;
         $commenter = Auth::user();
         $comment = $this->comment;
 
@@ -35,10 +36,10 @@ class PostComments extends Component
         $this->comment = '';
 
         // Trigger the PostCommented notification
-        $this->post->user->notify(new PostCommented($post, $commenter, $comment));
+        $post_author->notify(new PostCommented($post, $commenter, $comment));
 
         // Trigger the CommentPosted event
-        CommentPosted::dispatch($post, $commenter, $comment);
+        CommentPosted::dispatch($post, $post_author, $comment);
     }
 
     #[Computed]

@@ -45,11 +45,6 @@ class CommentPosted implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
-        Log::info('Broadcasting CommentPosted event', [
-            'post' => $this->post->id,
-            'user' => $this->user->id,
-            'comment' => $this->comment,
-        ]);
         return [
             'post' => $this->post->toArray(),
             'user' => $this->user->toArray(),
