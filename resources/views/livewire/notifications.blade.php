@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between mb-3">
         <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white flex justify-end gap-2">New
             notification</span>
-        @if (count($notifications) > 0)
+        @if (count($unreadNotifications) > 0)
             <button class="px-2 py-1 border border-gray-200 hover:bg-gray-200 text-black rounded-lg text-xs"
                 wire:click="markAllAsRead">Mark All as
                 Read</button>
@@ -18,7 +18,7 @@
 
     </div>
 
-    @forelse ($notifications as $notification)
+    @forelse ($unreadNotifications as $notification)
         <div class="flex items-center my-4 {{ $notification->read_at ? 'bg-slate-50' : 'bg-slate-200' }} p-4 rounded-lg">
             <div class="flex-none relative inline-block shrink-0">
                 <img class="w-12 h-12 rounded-full border-2 border-gray-800" src="{{ $user->avatar_url }}"
@@ -69,9 +69,9 @@
         </div>
 
     @empty
-        <p class="text-sm text-gray-500">No notifications yet.</p>
+        <p class="text-sm text-gray-500">No new notification.</p>
     @endforelse
-    {{ $notifications->links(data: ['scrollTo' => false]) }}
+    {{ $unreadNotifications->links(data: ['scrollTo' => false]) }}
 </div>
 
 @push('scripts')

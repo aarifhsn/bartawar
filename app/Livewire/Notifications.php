@@ -26,7 +26,6 @@ class Notifications extends Component
         auth()->user()->unreadNotifications->markAsRead();
     }
 
-
     public function render()
     {
         $userServices = new UserServices();
@@ -34,13 +33,15 @@ class Notifications extends Component
 
         if (!auth()->check()) {
             return view('livewire.notifications', [
-                'notifications' => collect(), // Return an empty collection
+                'unreadNotifications' => collect(), // Return an empty collection
+                'readNotifications' => collect(),
             ]);
         }
 
         return view('livewire.notifications', [
             'user' => $user,
-            'notifications' => auth()->user()->notifications()->latest()->paginate(6),
+            'unreadNotifications' => auth()->user()->unreadNotifications()->latest()->paginate(10),
+            'readNotifications' => auth()->user()->readNotifications()->latest()->paginate(10),
         ]);
     }
 }

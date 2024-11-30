@@ -25,29 +25,34 @@ class LikeButton extends Component
 
     public function toogleLike()
     {
-        if (Auth::guest()) {
-            return redirect(route('login'), true);
+        try {
+            if (Auth::guest()) {
+                return redirect(route('login'));
+            }
+
+            $user = Auth::user();
+
+            if ($this->hasLiked) {
+                $user->likes()->detach($this->post);
+                $this->likeCount--;
+            } else {
+                $user->likes()->attach($this->post);
+                $this->likeCount++;
+
+                // Notify the post owner
+                $this->post->user->notify(new PostLiked($user, $this->post));
+
+                // Trigger the PostLiked event
+                PostLikedEvent::dispatch($this->post, $this->post->user);
+            }
+
+            $this->hasLiked = !$this->hasLiked;
+
+        } catch (\Exception $e) {
+            $this->emit('error', 'Failed to process the like action.');
         }
-
-        $user = Auth::user();
-        $post = $this->post;
-        $post_author = $this->post->user;
-
-        if ($this->hasLiked) {
-            $user->likes()->detach($this->post);
-            $this->likeCount--;
-        } else {
-            $user->likes()->attach($this->post);
-            $this->likeCount++;
-
-            // Notify the post owner
-            $post_author->notify(new PostLiked($user, $post));
-
-            // Trigger the PostLiked event
-            PostLikedEvent::dispatch($post, $post_author);
-        }
-        $this->hasLiked = !$this->hasLiked;
     }
+
     public function render()
     {
         return view('livewire.like-button');
