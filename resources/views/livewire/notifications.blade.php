@@ -75,14 +75,5 @@
 </div>
 
 @push('scripts')
-    <script>
-        window.Echo.channel(`post.${postId}`).listen(".CommentPosted", (event) => {
-            console.log("New comment:", event);
-            // Update comments section
-            const commentsContainer = document.getElementById("comments-container");
-            const newComment = `<div><strong>${event.user.name}:</strong> ${event.comment}</div>`;
-            commentsContainer.innerHTML = newComment + commentsContainer.innerHTML;
-        });
 
-    </script>
 @endpush

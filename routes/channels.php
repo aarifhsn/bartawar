@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use App\Models\User;
 
-// channel is actually the creator of the post
-Broadcast::channel('post.{id}', function ($user, $id) {
+Broadcast::channel('users.{id}', function (User $user, $id) {
     return (int) $user->id === (int) $id;
 });
+

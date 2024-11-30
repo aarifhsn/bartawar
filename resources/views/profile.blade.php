@@ -12,7 +12,6 @@
 <section
     class="bg-white border-2 p-8 border-gray-200 rounded-xl min-h-[400px] space-y-8 flex items-center flex-col justify-center">
 
-
     <!-- Profile Info -->
     <div class="flex gap-4 justify-center flex-col text-center items-center">
 
@@ -31,6 +30,22 @@
 
         </div>
         <!-- / User Meta -->
+
+        <!-- Profile Stats -->
+        <div class="flex flex-row gap-16 justify-center text-center items-center">
+            <!-- Total Posts Count -->
+            <div class="flex flex-col justify-center items-center">
+                <h4 class="sm:text-xl font-bold">{{$user->posts->count()}}</h4>
+                <p class="text-gray-600">Posts</p>
+            </div>
+
+            <!-- Total Comments Count -->
+            <div class="flex flex-col justify-center items-center">
+                <h4 class="sm:text-xl font-bold">{{ $user->comments->count() }}</h4>
+                <p class="text-gray-600">Comments</p>
+            </div>
+        </div>
+        <!-- /Profile Stats -->
     </div>
     <!-- /Profile Info -->
 

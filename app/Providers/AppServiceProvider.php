@@ -6,6 +6,7 @@ use App\Events\CommentPosted;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {

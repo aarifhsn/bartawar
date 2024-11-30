@@ -16,8 +16,17 @@
                 <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
                     <!-- Notification dropdown -->
                     @if (auth()->check())
-                        <div x-data="{ open: false }" class="flex">
-                            <button @click="open = !open" type="button">
+                        <div x-data="{ open: false }" class="flex relative">
+
+                            <button @click="open = !open" type="button relative">
+
+                                @if (auth()->user()->unreadNotifications->count() > 0)
+                                    <span id="notification-count"
+                                        class="absolute top-[-8px] right-[-6px] bg-red-600 text-white text-xs font-semibold w-4 h-4 flex items-center justify-center rounded-full">
+                                        {{ auth()->user()->unreadNotifications->count() }}
+                                    </span>
+                                @endif
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                                     class="bi bi-bell-fill" viewBox="0 0 16 16">
                                     <path
@@ -51,7 +60,6 @@
                                     </svg>
                                 @endif
                             </button>
-
                         </div>
 
                         <!-- Dropdown menu -->
@@ -84,12 +92,7 @@
 
         @include ('components.mobile-navbar')
     </nav>
+
+    @livewire('notification-viewer')
+
 </header>
-
-<script>
-    window.Echo.private(`notifications.${userId}`)
-        .notification((notification) => {
-            alert(notification.message); // Show an alert or update the UI
-        });
-
-</script>

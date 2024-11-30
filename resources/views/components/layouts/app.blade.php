@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- AlpineJS CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
 
     <!-- livwire styles -->
@@ -38,17 +37,12 @@
 
     @include('components.footer')
 
-    <!-- Livewire Scripts -->
-    @livewireStyles
     @livewireScripts
 
     @stack('scripts')
-    <script>
-        let id = "{{ $id ?? '' }}";
-        window.Echo.private(`post.${id}`).listen("CommentPosted", (event) => {
-            console.log("New comment:", event);
-        });
-    </script>
+
+    @vite('resources/js/app.js')
+
 </body>
 
 </html>
