@@ -6,13 +6,13 @@ use Livewire\Component;
 use App\Models\Post;
 use Livewire\Attributes\Reactive;
 use App\Notifications\PostLiked;
+use App\Events\PostLikedEvent;
 use Illuminate\Support\Facades\Auth;
 
 class LikeButton extends Component
 {
 
     public Post $post;
-
     public int $likeCount;
     public bool $hasLiked;
 
@@ -31,6 +31,7 @@ class LikeButton extends Component
 
         $user = Auth::user();
         $post = $this->post;
+        $post_author = $this->post->user;
 
         if ($this->hasLiked) {
             $user->likes()->detach($this->post);
@@ -40,11 +41,12 @@ class LikeButton extends Component
             $this->likeCount++;
 
             // Notify the post owner
-            $this->post->user->notify(new PostLiked($user, $post));
+            $post_author->notify(new PostLiked($user, $post));
+
+            // Trigger the PostLiked event
+            PostLikedEvent::dispatch($post, $post_author);
         }
-
         $this->hasLiked = !$this->hasLiked;
-
     }
     public function render()
     {
