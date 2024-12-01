@@ -16,14 +16,15 @@ Barta is a simple social networking platform where users can post content, updat
 
 Before setting up the project, make sure you have the following installed:
 
--   **PHP 7.4 or higher**
+-   **PHP (>= 8.1 recommended)**
 -   **Composer**
 -   **Laravel 8.x or higher**
--   **SQLite or another supported database**
+-   **Node.js (>= 14.0.0)**
+-   **NPM (or Yarn)**
+-   **A configured MySQL database**
+-   **Pusher credentials for real-time events**
 
 ## Installation
-
-You can set up the project easily using a `Makefile` to streamline the process. Follow these steps:
 
 1. **Clone the repository:**
 
@@ -31,14 +32,77 @@ You can set up the project easily using a `Makefile` to streamline the process. 
     git clone https://github.com/aarifhsn/bartawar.git
     ```
 
-2. **Set up the project with the `Makefile`:**
-
-    If you have `make` installed, you can run the following command to install dependencies, set up environment files, and configure the project automatically:
+2. **Navigate to the Project Directory**
 
     ```bash
-    make install
+    cd bartawar
     ```
 
-3. **Access the application:**
+3. **Install PHP dependencies**
+
+    ```bash
+    composer install
+    ```
+
+4. **Install JavaScript dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+5. **Configure the .env file**
+
+    **Set up database credentials:**
+
+    ```bash
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_database_username
+    DB_PASSWORD=your_database_password
+    ```
+
+    **Set up Pusher credentials:**
+
+    ```bash
+    BROADCAST_DRIVER=pusher
+    PUSHER_APP_ID=your_pusher_app_id
+    PUSHER_APP_KEY=your_pusher_app_key
+    PUSHER_APP_SECRET=your_pusher_app_secret
+    PUSHER_APP_CLUSTER=your_pusher_app_cluster
+    ```
+
+6. **Run database migrations:**
+
+    ```bash
+    php artisan migrate
+    ```
+
+7. **Link the storage directory: Laravel uses symbolic links to access files stored in the** storage **directory from the public directory.**
+
+    ```bash
+    php artisan storage:link
+    ```
+
+8. **Start the Laravel queue worker: Laravel uses queues to process notifications asynchronously.**
+
+    ```bash
+    php artisan queue:work
+    ```
+
+9. **Compile Frontent Assets**
+
+    ```bash
+    npm run dev
+    ```
+
+10. **php artisan serve**
+
+    ```bash
+    php artisan serve
+    ```
+
+11. **Access the application:**
 
     Open your browser and navigate to [http://localhost:8000](http://localhost:8000) to start using the platform.

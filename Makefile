@@ -29,14 +29,6 @@ migrate:
 storage-link:
 	$(PHP_ARTISAN) storage:link
 
-# Step 7: Run queue worker
-queue-work:
-	$(PHP_ARTISAN) queue:work
-
-# Step 8: Run npm
-npm-run:
-	npm run dev
-
-# Step 9: Serve the application
+# Step 7: Serve the application
 serve:
 	$(PHP_ARTISAN) serve
