@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between mb-3">
         <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white flex justify-end gap-2">New
             notification</span>
-        @if (count($unreadNotifications) > 0)
+        @if (count($notifications) > 0)
             <button class="px-2 py-1 border border-gray-200 hover:bg-gray-200 text-black rounded-lg text-xs"
                 wire:click="markAllAsRead">Mark All as
                 Read</button>
@@ -18,11 +18,10 @@
 
     </div>
 
-    @forelse ($unreadNotifications as $notification)
+    @forelse ($notifications as $notification)
         <div class="flex items-center my-4 {{ $notification->read_at ? 'bg-slate-50' : 'bg-slate-200' }} p-4 rounded-lg">
             <div class="flex-none relative inline-block shrink-0">
-                <img class="w-12 h-12 rounded-full border-2 border-gray-800" src="{{ $user->avatar_url }}"
-                    alt="{{ $user->username }}" />
+                <img src="" alt="">
                 <span
                     class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
                     @if(isset($notification->data['commenter_name']))
@@ -66,12 +65,17 @@
                 <span
                     class="text-md text-gray-700  border border-slate-200 hover:bg-slate-300 p-1 px-2 rounded-full">&#10003;</span>
             </button>
+
+            <!-- Auto-mark all as read -->
+            <div x-data="{ autoRead: true }" x-init="setTimeout(() => { 
+                        if(autoRead) { @this.autoMarkAllAsRead() } 
+                    }, 5000)"></div>
         </div>
 
     @empty
         <p class="text-sm text-gray-500">No new notification.</p>
     @endforelse
-    {{ $unreadNotifications->links(data: ['scrollTo' => false]) }}
+    {{ $notifications->links(data: ['scrollTo' => false]) }}
 </div>
 
 @push('scripts')

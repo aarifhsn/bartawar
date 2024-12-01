@@ -36,13 +36,13 @@
             <!-- Total Posts Count -->
             <div class="flex flex-col justify-center items-center">
                 <h4 class="sm:text-xl font-bold">{{$user->posts->count()}}</h4>
-                <!-- <p class="text-gray-600">{{ Str::plural('Post', $user->posts->count()) }}</p> -->
+                <p class="text-gray-600">{{ Str::plural('Post', $user->posts->count()) }}</p>
             </div>
 
             <!-- Total Comments Count -->
             <div class="flex flex-col justify-center items-center">
                 <h4 class="sm:text-xl font-bold">{{ $user->comments->count() }}</h4>
-                <!-- <p class="text-gray-600">{{Str::plural('Comment', $user->comments->count())}}</p> -->
+                <p class="text-gray-600">{{Str::plural('Comment', $user->comments->count())}}</p>
             </div>
         </div>
         <!-- /Profile Stats -->
