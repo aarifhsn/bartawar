@@ -101,4 +101,26 @@ class PostsTest extends TestCase
         $response->assertSeeText('My post 10');
         $response->assertDontSeeText('My post 11');
     }
+
+    public function test_admin_can_see_delete_button()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => true,
+        ]);
+
+        $response = $this->actingAs($admin)->get('/');
+
+        $response->assertStatus(200);
+        $response->assertSeeText('Delete');
+    }
+
+    public function test_non_admin_cannot_see_delete_button()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/');
+
+        $response->assertStatus(200);
+        $response->assertDontSeeText('Delete');
+    }
 }
