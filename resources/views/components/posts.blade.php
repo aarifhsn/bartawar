@@ -21,7 +21,7 @@
                         </div>
                         <!-- /User Info -->
                     </div>
-                    @if (Auth::check() && Auth::user()->id == $post->user->id)
+                    @if (Auth::check() && (Auth::user()->id == $post->user->id || Auth::user()->is_admin))
                         <!-- Card Action Dropdown -->
                         @include('components.card-action', ['post' => $post])
                         <!-- /Card Action Dropdown -->
@@ -55,6 +55,15 @@
         </article>
     @endforeach
     <!-- /Barta Card -->
+
+    @if ($posts->isEmpty())
+        <div>
+                <div class="text-center p-12 border border-gray-800 rounded-xl">
+                    <h3 class="text-3xl justify-center items-center">No posts found</h3>
+                </div>
+        </div>
+        
+    @endif
 
     <!-- check if there are more posts -->
     @if ($posts->hasMorePages())
