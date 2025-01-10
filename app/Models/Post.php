@@ -31,4 +31,16 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    // parent boot
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($post) {
+            if (empty($post->content)) {
+                return false; // Prevent saving empty content
+            }
+        });
+    }
 }
